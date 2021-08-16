@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>James' Site</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <canvas id="bg"></canvas>
+
+    <main id="main">
+
+        <header>
+            <h1 style="margin-top: 0px;">James Shaw</h1>
+            <p>Welcome to my website! 🤿</p>
+            <p>Why not have a scroll? 😳</p>
+        </header>
+
+
+        <blockquote>
+            <p>Hey, I'm glad you came! Seems like you want to know a bit more about me, nice! 🆒👇</p>
+        </blockquote>
+
+        <section>
+            <h2>📜 Curriculum Vitae</h2>
+            <p>
+                I am a dedicated 4th year Computer Scientist studying at the University of Dundee. I would love to be at the heart of technological advancement through software and/or web development, although I am open to wider areas of opportunity.
+            </p>
+            <br>
+            <h3>Education</h3>
+
+            <h4>
+                University of Dundee 2018-2022
+            </h4>
+
+            <p>
+                • 1st year: Web Authoring, Java development and Advanced Maths.
+            </p>
+            <p>
+                • 2nd year: Pure Maths, Unix Systems, Computer Architecture and C programming. OOP with C++ and then C# in Visual Studio for second semester.
+            </p>
+            <p>
+                • 3rd Year 1st semester with Database Systems in MySQL, Computer Networks and Information Security. Then 2nd semester with Agile Software Engineering (Creating a Web App), then Games Programming and Theory of Computation
+            </p>
+            <br>
+            <p>
+                Sound good? Why not take a look at my projects below ⬇️
+            </p>
+
+        </section>
+
+        <section class="light">
+            <h2>👩🏽‍🚀 Projects</h2>
+
+            <p>
+                I am currently working on a couple things:
+            </p>
+            <p>
+                • <b>Shufflr</b>, an Ionic Mobile App to make tracking running data more exciting with music 🎵
+            </p>
+            <p>
+                • This page! Hope you like it 😮
+            </p>
+
+            <h2>🏆 Accomplishments</h2>
+
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+
+        </section>
+
+        <blockquote>
+            <p>And why not have a look at my work history...</p>
+        </blockquote>
+
+        <section class="left">
+            <h2>💻 Work History</h2>
+
+            <h3>Not McDonalds</h3>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+
+        </section>
+
+        <blockquote>
+            <p>Thanks for coming! 😎</p>
+        </blockquote>
+
+        <div class="volume">
+            <img src="volume_mute.svg" alt="VOLUME" id="volumeBtn">
+        </div>
+
+        <script>
+            var mainPage = document.getElementById("main");
+            // Detect if we're at the bottom of the page, it's jquery cause that worked best
+            $(window).scroll(function() {
+                if ($(window).scrollTop() + $(window).height() == $(document).height()) {}
+            });
+        </script>
+
+    </main>
+    <!-- <div id="app"></div> -->
+    <script type="module" src="/main.js"></script>
+</body>
+
+</html>
