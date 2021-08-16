@@ -3,6 +3,12 @@ import './style.css'
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
+//Import assets
+import volume_mute from './volume_mute.svg';
+import volume_off from './volume_off.svg';
+import meCutout from './meCutout.png';
+import UnderwaterSpaceLo from './UnderwaterSpaceLo.mp3';
+
 window.addEventListener('resize', updateWindowSize);
 
 const scene = new THREE.Scene();
@@ -27,7 +33,7 @@ torus.position.set(1.8, 0, -4);
 scene.add(torus);
 
 // Our cube with me on it
-const meTexture = new THREE.TextureLoader().load('meCutout.png')
+const meTexture = new THREE.TextureLoader().load(meCutout)
 const meCube = new THREE.Mesh(
     new THREE.BoxGeometry(3, 3, 3),
     new THREE.MeshBasicMaterial({ map: meTexture })
@@ -98,7 +104,7 @@ const oceanSound = new THREE.Audio(listener);
 // load a sound and set it as the Audio object's buffer
 // for some reason on page refreshes sometimes audio insn't loading correctly? Possibly when cache not dumped fully?
 const audioLoader = new THREE.AudioLoader();
-audioLoader.load('UnderwaterSpaceLo.mp3', function(buffer) {
+audioLoader.load(UnderwaterSpaceLo, function(buffer) {
     oceanSound.setBuffer(buffer);
     oceanSound.setLoop(true);
     oceanSound.setVolume(0.03);
@@ -108,14 +114,15 @@ audioLoader.load('UnderwaterSpaceLo.mp3', function(buffer) {
 // Handles Toggling for volume
 // Add onlick event to img
 var volumeBtn = document.getElementById("volumeBtn")
+volumeBtn.src = volume_mute;
 volumeBtn.onclick = toggleVolume;
 
 function toggleVolume() {
     if (oceanSound.isPlaying) {
-        volumeBtn.src = "volume_off.svg";
+        volumeBtn.src = volume_off;
         oceanSound.pause()
     } else {
-        volumeBtn.src = "volume_mute.svg";
+        volumeBtn.src = volume_mute;
         oceanSound.play()
     }
 }
