@@ -164,7 +164,7 @@ const audioLoader = new THREE.AudioLoader();
 audioLoader.load(underwaterSpaceLo, function(buffer) {
     oceanSound.setBuffer(buffer);
     oceanSound.setLoop(true);
-    oceanSound.setVolume(0.03);
+    //oceanSound.setVolume(1);
     oceanSound.play();
 });
 
