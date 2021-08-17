@@ -101,7 +101,7 @@ scene.background = backgroundColor;
 
 let boatModel, fishModel;
 let p1 = loadModel('sailing_boat/scene.gltf').then(result => { boatModel = result.scene.children[0]; });
-let p2 = loadModel('low_poly-fish/scene.gltf').then(result => { fishModel = result.scene.children[0]; });
+let p2 = loadModel('low_poly_fish/scene.gltf').then(result => { fishModel = result.scene.children[0]; });
 
 // Module Loader
 function loadModel(url) {
