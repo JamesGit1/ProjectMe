@@ -17,6 +17,7 @@ main {
     z-index: 99;
     position: absolute;
     left: 0;
+    top: 0;
     margin: 0px auto;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -36,6 +37,16 @@ header {
     margin-bottom: var(--spacing);
     border-radius: 30px;
     margin-top: 2em;
+    animation: fadein 3s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 section {
@@ -91,6 +102,12 @@ div.footer p {
 p.phoneNotifcation {
     display: none;
     color: red;
+}
+
+div#loadingScreen {
+    background-color: black;
+    width: 100vw;
+    text-align: center;
 }
 
 

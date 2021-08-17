@@ -6,15 +6,16 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>James' Site</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
-<body>
+<body style="background: black;">
 
     <canvas id="bg"></canvas>
 
     <main id="main">
-
+        <div id="loadingScreen">
+            <p>LOADING...</p>
+        </div>
         <header>
             <h1 style="margin-top: 0px;">James Shaw</h1>
             <p>Welcome to my website! 🤿</p>
@@ -109,14 +110,6 @@
             <p>Both licensed under CC-BY-4.0 <a href="https://creativecommons.org/licenses/by/4.0/">(http://creativecommons.org/licenses/by/4.0/)</a></p>
 
         </div>
-
-        <!-- <script>
-            var mainPage = document.getElementById("main");
-            // Detect if we're at the bottom of the page, it's jquery cause that worked best
-            $(window).scroll(function() {
-                if ($(window).scrollTop() + $(window).height() == $(document).height()) {}
-            });
-        </script> -->
 
     </main>
     <!-- <div id="app"></div> -->

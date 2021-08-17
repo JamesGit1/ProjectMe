@@ -11,6 +11,8 @@ import underwaterSpaceLo from './UnderwaterSpaceLo.mp3';
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
+const loadingScreen = document.getElementById('loadingScreen')
+
 window.addEventListener('resize', updateWindowSize);
 
 const scene = new THREE.Scene();
@@ -55,7 +57,6 @@ scene.add(pointLight, ambientLight);
 // const gridHelper = new THREE.GridHelper(200, 50);
 // scene.add(gridHelper);
 
-const controls = new OrbitControls(camera, renderer.domElement);
 
 function addStar() {
     const geometry = new THREE.SphereGeometry(0.25, 24, 24);
@@ -108,7 +109,11 @@ let p3 = loadModel("/low_poly_fish/scene.gltf").then(result => { fishModel2 = re
 // Module Loader
 function loadModel(url) {
     return new Promise(resolve => {
-        new GLTFLoader().load(url, resolve);
+        new GLTFLoader().load(url, resolve, function(xhr) {
+
+            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+
+        });
     });
 }
 
@@ -128,6 +133,7 @@ Promise.all([p1, p2, p3]).then(() => {
     scene.add(boatModel);
     scene.add(fishModel);
     scene.add(fishModel2);
+    loadingScreen.style.display = "none";
 });
 
 //function for updating window size but requires page reloading whenever
@@ -185,12 +191,20 @@ function toggleVolume() {
     }
 }
 
-var reachedTop = false;
+function hideMain() {
+    var x = document.getElementById("main");
+    x.style.display = "none";
+}
+
+const controls = new OrbitControls(camera, renderer.domElement);
+
+controls.update();
+
 // Main continuous animation function
+var reachedTop = false;
+
 function animate() {
     requestAnimationFrame(animate);
-
-    controls.update();
 
     // torus.rotation.x += 0.005;
     // torus.rotation.y += 0.005;
@@ -221,7 +235,9 @@ function animate() {
     meCube.rotation.y += -0.005;
     meCube.rotation.z += 0.005;
 
+    controls.update();
+
     renderer.render(scene, camera);
 }
-
+//hideMain();
 animate();
