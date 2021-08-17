@@ -134,7 +134,8 @@ Promise.all([p1, p2, p3]).then(() => {
 function updateWindowSize() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
-    location.reload();
+    renderer.render(scene, camera);
+    //location.reload();
 }
 
 function moveCamera() {
