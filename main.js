@@ -7,7 +7,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import volume_mute from './volume_mute.svg';
 import volume_off from './volume_off.svg';
 import meCutout from './meCutout.png';
-import UnderwaterSpaceLo from './UnderwaterSpaceLo.mp3';
+import underwaterSpaceLo from './UnderwaterSpaceLo.mp3';
+
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 window.addEventListener('resize', updateWindowSize);
 
@@ -25,12 +27,12 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 
 renderer.render(scene, camera);
 // Our torus
-const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
-const material = new THREE.MeshStandardMaterial({ color: 0x000000 }); // MeshBasicMaterial doesn't need lightsource
-const torus = new THREE.Mesh(geometry, material);
+// const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+// const material = new THREE.MeshStandardMaterial({ color: 0x000000 }); // MeshBasicMaterial doesn't need lightsource
+// const torus = new THREE.Mesh(geometry, material);
 
-torus.position.set(1.8, 0, -4);
-scene.add(torus);
+// torus.position.set(1.8, 0, -4);
+// scene.add(torus);
 
 // Our cube with me on it
 const meTexture = new THREE.TextureLoader().load(meCutout)
@@ -73,6 +75,54 @@ Array(200).fill().forEach(addStar);
 const backgroundColor = new THREE.Color(0x071333);
 scene.background = backgroundColor;
 
+// Old loading
+// const loader = new GLTFLoader();
+
+// loader.load('sailing_boat/scene.gltf', function(boatModelAsset) {
+
+//     boatModelAsset.scene.scale.set(0.1, 0.1, 0.1); // scale here
+//     boatModelAsset.scene.position.set(-10, -10, -4);
+
+//     scene.add(boatModelAsset.scene);
+
+// }, undefined, function(error) {
+//     console.error(error);
+// });
+
+// loader.load('low_poly-fish/scene.gltf', function(fishAsset) {
+//     for (let i = 0; i < 3; i++) {
+//         fishAsset.scene.position.set(i, 0, 0);
+//         scene.add(fishAsset.scene);
+//     }
+
+// }, undefined, function(error) {
+//     console.error(error);
+// });
+
+let boatModel, fishModel;
+let p1 = loadModel('sailing_boat/scene.gltf').then(result => { boatModel = result.scene.children[0]; });
+let p2 = loadModel('low_poly-fish/scene.gltf').then(result => { fishModel = result.scene.children[0]; });
+
+// Module Loader
+function loadModel(url) {
+    return new Promise(resolve => {
+        new GLTFLoader().load(url, resolve);
+    });
+}
+
+//if all Promises resolved 
+Promise.all([p1, p2]).then(() => {
+    //do something to the models
+    boatModel.position.set(-10, -10, -4);
+    boatModel.scale.set(0.1, 0.1, 0.1);
+
+    fishModel.position.set(0, 0, 0);
+
+    //add model to the scene
+    scene.add(boatModel);
+    scene.add(fishModel);
+});
+
 //function for updating window size but requires page reloading whenever
 function updateWindowSize() {
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -104,7 +154,7 @@ const oceanSound = new THREE.Audio(listener);
 // load a sound and set it as the Audio object's buffer
 // for some reason on page refreshes sometimes audio insn't loading correctly? Possibly when cache not dumped fully?
 const audioLoader = new THREE.AudioLoader();
-audioLoader.load(UnderwaterSpaceLo, function(buffer) {
+audioLoader.load(underwaterSpaceLo, function(buffer) {
     oceanSound.setBuffer(buffer);
     oceanSound.setLoop(true);
     oceanSound.setVolume(0.03);
@@ -127,18 +177,19 @@ function toggleVolume() {
     }
 }
 
+
 // Main continuous animation function
 function animate() {
     requestAnimationFrame(animate);
 
     controls.update();
 
-    torus.rotation.x += 0.005;
-    torus.rotation.y += 0.005;
+    // torus.rotation.x += 0.005;
+    // torus.rotation.y += 0.005;
 
-    meCube.rotation.x += 0.005;
-    meCube.rotation.y += -0.005;
-    meCube.rotation.z += 0.005;
+    // meCube.rotation.x += 0.005;
+    // meCube.rotation.y += -0.005;
+    // meCube.rotation.z += 0.005;
 
     renderer.render(scene, camera);
 }
