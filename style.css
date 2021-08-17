@@ -16,8 +16,8 @@ main {
     color: white;
     z-index: 99;
     position: absolute;
+    left: 0;
     margin: 0px auto;
-    padding: 120px 0px;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
 }
@@ -34,7 +34,8 @@ header {
     font-size: 2.5rem;
     padding: 2rem;
     margin-bottom: var(--spacing);
-    border-radius: 10px;
+    border-radius: 30px;
+    margin-top: 2em;
 }
 
 section {
@@ -48,8 +49,8 @@ section {
 }
 
 blockquote {
-    margin: 0;
-    padding: 0;
+    /* margin: 0;
+    padding: 0; */
     grid-column: 2 / span 9;
     margin-bottom: var(--spacing);
 }
@@ -71,4 +72,50 @@ div.volume {
     right: 1em;
     background-color: black;
     border-radius: 100px;
+}
+
+div.footer {
+    font-size: x-small;
+    grid-column: 1 / 13;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding-left: 1em;
+}
+
+p.phoneNotifcation {
+    display: none;
+    color: red;
+}
+
+
+/* For landscape phones */
+
+@media only screen and (max-width: 900px) {
+    header {
+        font-size: 1.5rem;
+    }
+}
+
+
+/* For portait devices */
+
+@media only screen and (max-width: 400px) {
+    header {
+        grid-column: 2 / 12;
+    }
+    blockquote {
+        grid-column: 2 / 12;
+    }
+    section {
+        grid-column: 2 / 12;
+    }
+    .left {
+        grid-column: 2 / 12;
+    }
+    p.phoneNotifcation {
+        display: block;
+    }
 }

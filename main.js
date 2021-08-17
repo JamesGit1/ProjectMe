@@ -99,9 +99,11 @@ scene.background = backgroundColor;
 //     console.error(error);
 // });
 
-let boatModel, fishModel;
+// New and improved promise loading, better for more objects
+let boatModel, fishModel, fishModel2;
 let p1 = loadModel("/sailing_boat/scene.gltf").then(result => { boatModel = result.scene.children[0]; });
 let p2 = loadModel("/low_poly_fish/scene.gltf").then(result => { fishModel = result.scene.children[0]; });
+let p3 = loadModel("/low_poly_fish/scene.gltf").then(result => { fishModel2 = result.scene.children[0]; });
 
 // Module Loader
 function loadModel(url) {
@@ -111,16 +113,21 @@ function loadModel(url) {
 }
 
 //if all Promises resolved 
-Promise.all([p1, p2]).then(() => {
+Promise.all([p1, p2, p3]).then(() => {
     //do something to the models
     boatModel.position.set(-10, -10, -4);
     boatModel.scale.set(0.1, 0.1, 0.1);
 
-    fishModel.position.set(0, 0, 0);
+    fishModel.position.set(10, 0, 13);
+    fishModel.rotation.z -= 0.4;
+
+    fishModel2.rotation.z += 2.2;
+    fishModel2.position.set(-1, -2, 13);
 
     //add model to the scene
     scene.add(boatModel);
     scene.add(fishModel);
+    scene.add(fishModel2);
 });
 
 //function for updating window size but requires page reloading whenever
@@ -177,7 +184,7 @@ function toggleVolume() {
     }
 }
 
-
+var reachedTop = false;
 // Main continuous animation function
 function animate() {
     requestAnimationFrame(animate);
@@ -187,12 +194,33 @@ function animate() {
     // torus.rotation.x += 0.005;
     // torus.rotation.y += 0.005;
 
-    // meCube.rotation.x += 0.005;
-    // meCube.rotation.y += -0.005;
-    // meCube.rotation.z += 0.005;
+
+    if (camera.position.z > 15) {
+        //console.log(fishModel.position.x);
+        fishModel.position.x -= 0.01;
+        fishModel2.position.x += 0.01;
+    }
+
+    // Go up and down like a boat!
+    if (meCube.position.y < 0.4 && !reachedTop) {
+        meCube.position.y += 0.01;
+        boatModel.position.y += 0.01;
+    } else if (meCube.position.y >= 0.4) {
+        reachedTop = true;
+    }
+
+    if (reachedTop && meCube.position.y > -1) {
+        meCube.position.y -= 0.01;
+        boatModel.position.y -= 0.01;
+    } else if (meCube.position.y <= -1) {
+        reachedTop = false;
+    }
+
+    meCube.rotation.x += 0.005;
+    meCube.rotation.y += -0.005;
+    meCube.rotation.z += 0.005;
 
     renderer.render(scene, camera);
 }
-
 
 animate();
