@@ -82,7 +82,10 @@ div.footer {
     width: 100%;
     background-color: black;
     color: white;
-    padding-left: 1em;
+}
+
+div.footer p {
+    margin-left: 1em;
 }
 
 p.phoneNotifcation {
