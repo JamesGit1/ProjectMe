@@ -9,6 +9,9 @@ import volume_off from './volume_off.svg';
 import meCutout from './meCutout.png';
 import underwaterSpaceLo from './UnderwaterSpaceLo.mp3';
 
+import sailing_boat from './sailing_boat/scene.gltf?url';
+import low_poly_fish from './low_poly_fish/scene.gltf?url';
+
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 window.addEventListener('resize', updateWindowSize);
@@ -100,8 +103,8 @@ scene.background = backgroundColor;
 // });
 
 let boatModel, fishModel;
-let p1 = loadModel('sailing_boat/scene.gltf').then(result => { boatModel = result.scene.children[0]; });
-let p2 = loadModel('low_poly_fish/scene.gltf').then(result => { fishModel = result.scene.children[0]; });
+let p1 = loadModel(sailing_boat).then(result => { boatModel = result.scene.children[0]; });
+let p2 = loadModel(low_poly_fish).then(result => { fishModel = result.scene.children[0]; });
 
 // Module Loader
 function loadModel(url) {
