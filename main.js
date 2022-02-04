@@ -7,11 +7,12 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import volume_mute from './volume_mute.svg';
 import volume_off from './volume_off.svg';
 import meCutout from './meCutout.png';
-import underwaterSpaceLo from './UnderwaterSpaceLo.mp3';
+import tenderness from './tenderness.mp3';
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const loadingScreen = document.getElementById('loadingScreen')
+const wordleScreen = document.getElementById('wordleScreen')
 
 window.addEventListener('resize', updateWindowSize);
 
@@ -100,11 +101,31 @@ scene.background = backgroundColor;
 //     console.error(error);
 // });
 
+function addWordle(data) {
+    console.log(data);
+    const h2 = document.createElement("H2");
+    const textNode = document.createTextNode(`Day ${data.dayNumber}, I scored ${data.score}`);
+
+    h2.appendChild(textNode); // Add text to h2
+    wordleScreen.appendChild(h2); // Display to screen
+
+    data.answer.forEach(line => {
+        const p = document.createElement("p");
+        const pNode = document.createTextNode(line);
+        p.style.cssText = 'margin-bottom: 0px; margin-top: 0px;';
+        p.appendChild(pNode);
+        wordleScreen.appendChild(p); // Display to screen
+        // console.log(line);
+    });
+}
+
+
 // New and improved promise loading, better for more objects
 let boatModel, fishModel, fishModel2;
 let p1 = loadModel("/sailing_boat/scene.gltf").then(result => { boatModel = result.scene.children[0]; });
 let p2 = loadModel("/low_poly_fish/scene.gltf").then(result => { fishModel = result.scene.children[0]; });
 let p3 = loadModel("/low_poly_fish/scene.gltf").then(result => { fishModel2 = result.scene.children[0]; });
+let p4 = fetch('https://wordleapi.herokuapp.com/todaysWordle').then(response => response.json()).then(data => addWordle(data)); // Fetch Wordle API
 
 // Module Loader
 function loadModel(url) {
@@ -118,7 +139,7 @@ function loadModel(url) {
 }
 
 //if all Promises resolved 
-Promise.all([p1, p2, p3]).then(() => {
+Promise.all([p1, p2, p3, p4]).then(() => {
     //do something to the models
     boatModel.position.set(-10, -10, -4);
     boatModel.scale.set(0.1, 0.1, 0.1);
@@ -163,31 +184,29 @@ const listener = new THREE.AudioListener();
 camera.add(listener);
 
 // create a global audio source
-const oceanSound = new THREE.Audio(listener);
+const backgroundAudio = new THREE.Audio(listener);
 
-// load a sound and set it as the Audio object's buffer
-// for some reason on page refreshes sometimes audio insn't loading correctly? Possibly when cache not dumped fully?
 const audioLoader = new THREE.AudioLoader();
-audioLoader.load(underwaterSpaceLo, function(buffer) {
-    oceanSound.setBuffer(buffer);
-    oceanSound.setLoop(true);
-    //oceanSound.setVolume(1);
-    oceanSound.play();
+audioLoader.load(tenderness, function(buffer) {
+    backgroundAudio.setVolume(0.05);
+    backgroundAudio.setBuffer(buffer);
+    backgroundAudio.setLoop(true);
+    //oceanSound.play();
 });
 
 // Handles Toggling for volume
 // Add onlick event to img
 var volumeBtn = document.getElementById("volumeBtn")
-volumeBtn.src = volume_mute;
+volumeBtn.src = volume_off;
 volumeBtn.onclick = toggleVolume;
 
 function toggleVolume() {
-    if (oceanSound.isPlaying) {
+    if (backgroundAudio.isPlaying) {
         volumeBtn.src = volume_off;
-        oceanSound.pause()
+        backgroundAudio.pause()
     } else {
         volumeBtn.src = volume_mute;
-        oceanSound.play()
+        backgroundAudio.play()
     }
 }
 
@@ -211,15 +230,17 @@ function animate() {
 
 
     if (camera.position.z > 15) {
-        //console.log(fishModel.position.x);
-        fishModel.position.x -= 0.01;
-        fishModel2.position.x += 0.01;
+        if (typeof fishModel !== 'undefined')
+            fishModel.position.x -= 0.01;
+        if (typeof fishModel2 !== 'undefined')
+            fishModel2.position.x += 0.01;
     }
 
     // Go up and down like a boat!
     if (meCube.position.y < 0.4 && !reachedTop) {
         meCube.position.y += 0.01;
-        boatModel.position.y += 0.01;
+        if (typeof boatModel !== 'undefined')
+            boatModel.position.y += 0.01;
     } else if (meCube.position.y >= 0.4) {
         reachedTop = true;
     }
