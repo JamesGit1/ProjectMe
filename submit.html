@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submit Wordle</title>
+</head>
+
+<body>
+    <h1>TEST</h1>
+</body>
+
+<script>
+    const data = {
+        "id": "B@ufeFfsmcE57cJZSE%5Sn@C&5UC*CcEWnF&e8TthF@ZcTmwp3LsPwLHFMZ7SewEhkMdUJWQkcEe3sNY&Kjw@oAe!k2!@dkPe93$",
+        "wordle": "Wordle 231 2/6 \n\n⬛⬛⬛⬛🟩\n🟩🟩🟩🟩🟩"
+    };
+
+    fetch('https://wordleapi.herokuapp.com/todaysWordle', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    }).then(response => response.json()).then(data => console.log('Success:', data)); // Fetch Wordle API
+
+    // fetch('https://wordleapi.herokuapp.com/todaysWordle', {
+    //         method: 'POST', // or 'PUT'
+    //         mode: 'no-cors',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(data),
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         console.log('Success:', data);
+    //     })
+    //     .catch((error) => {
+    //         console.error('Error:', error);
+    //     });
+</script>
+
+</html>
