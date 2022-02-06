@@ -10,39 +10,60 @@
   <script type="module" crossorigin src="/assets/submit.2bb718bb.js"></script>
   </head>
 
-<body>
-    <h1>TEST</h1>
+<body id="body">
+    <div>
+        <textarea id="txtArea" onkeypress="onTestChange();" rows="7" cols="15" autofocus style="resize: none;"></textarea>
+    </div>
+    <div>
+        <button onclick="submitWordle();">Submit</button>
+    </div>
 </body>
 
 <script>
-    const data = {
-        "id": "B@ufeFfsmcE57cJZSE%5Sn@C&5UC*CcEWnF&e8TthF@ZcTmwp3LsPwLHFMZ7SewEhkMdUJWQkcEe3sNY&Kjw@oAe!k2!@dkPe93$",
-        "wordle": "Wordle 231 2/6 \n\n⬛⬛⬛⬛🟩\n🟩🟩🟩🟩🟩"
-    };
+    function submitWordle() {
+        const textArea = document.getElementById("txtArea");
+        if (textArea.value === '') {
+            window.alert("Please enter a value in the text field");
+        } else {
+            textArea.disabled = true;
+            console.log(textArea.value);
 
-    fetch('https://wordleapi.herokuapp.com/todaysWordle', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    }).then(response => response.json()).then(data => console.log('Success:', data)); // Fetch Wordle API
+            const data = {
+                "id": "B@ufeFfsmcE57cJZSE%5Sn@C&5UC*CcEWnF&e8TthF@ZcTmwp3LsPwLHFMZ7SewEhkMdUJWQkcEe3sNY&Kjw@oAe!k2!@dkPe93$",
+                "wordle": textArea.value
+            };
 
-    // fetch('https://wordleapi.herokuapp.com/todaysWordle', {
-    //         method: 'POST', // or 'PUT'
-    //         mode: 'no-cors',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(data),
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log('Success:', data);
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error:', error);
-    //     });
+            fetch('https://wordleapi.herokuapp.com/todaysWordle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            }).then(response => response.json()).then(data => {
+
+                console.log('Success:', data)
+
+                const para = document.createElement("p");
+                const node = document.createTextNode("Submitted!");
+                para.appendChild(node);
+                const element = document.getElementById("body");
+                element.appendChild(para);
+
+            }); // Fetch Wordle API
+        }
+    }
+
+    function onTestChange() {
+        var key = window.event.keyCode;
+
+        // If the user has pressed enter
+        if (key === 13) {
+            submitWordle();
+            return false;
+        } else {
+            return true;
+        }
+    }
 </script>
 
 </html>
