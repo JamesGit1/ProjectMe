@@ -102,21 +102,30 @@ scene.background = backgroundColor;
 // });
 
 function addWordle(data) {
-    console.log(data);
-    const h2 = document.createElement("H2");
-    const textNode = document.createTextNode(`Day ${data.dayNumber}, I scored ${data.score}`);
+    if (Array.isArray(data.answer)) {
+        console.log(data);
+        const h2 = document.createElement("H2");
+        const textNode = document.createTextNode(`Day ${data.dayNumber}, I scored ${data.score}`);
 
-    h2.appendChild(textNode); // Add text to h2
-    wordleScreen.appendChild(h2); // Display to screen
+        h2.appendChild(textNode); // Add text to h2
+        wordleScreen.appendChild(h2); // Display to screen
 
-    data.answer.forEach(line => {
-        const p = document.createElement("p");
-        const pNode = document.createTextNode(line);
-        p.style.cssText = 'margin-bottom: 0px; margin-top: 0px;';
-        p.appendChild(pNode);
-        wordleScreen.appendChild(p); // Display to screen
-        // console.log(line);
-    });
+        data.answer.forEach(line => {
+            const p = document.createElement("p");
+            const pNode = document.createTextNode(line);
+            p.style.cssText = 'margin-bottom: 0px; margin-top: 0px;';
+            p.appendChild(pNode);
+            wordleScreen.appendChild(p); // Display to screen
+            // console.log(line);
+        });
+    } else {
+        console.log(data);
+        const h2 = document.createElement("H2");
+        const textNode = document.createTextNode(data.answer);
+
+        h2.appendChild(textNode); // Add text to h2
+        wordleScreen.appendChild(h2); // Display to screen
+    }
 }
 
 
