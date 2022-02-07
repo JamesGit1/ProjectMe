@@ -139,7 +139,4 @@ div#loadingScreen {
     .left {
         grid-column: 2 / 12;
     }
-    p.phoneNotifcation {
-        display: block;
-    }
 }

@@ -13,6 +13,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const loadingScreen = document.getElementById('loadingScreen')
 const wordleScreen = document.getElementById('wordleScreen')
+const phoneNotification = document.getElementById('phoneNotifcation')
 
 window.addEventListener('resize', updateWindowSize);
 
@@ -230,6 +231,10 @@ controls.update();
 
 // Main continuous animation function
 var reachedTop = false;
+
+if (window.innerHeight > window.innerWidth) {
+    phoneNotification.style.setProperty('display', 'block')
+}
 
 function animate() {
     requestAnimationFrame(animate);
