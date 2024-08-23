@@ -22,7 +22,7 @@ main {
     position: absolute;
     left: 0;
     top: 0;
-    margin: 0px auto;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
 }
@@ -124,7 +124,7 @@ div#loadingScreen {
 }
 
 
-/* For portait devices */
+/* For portrait devices */
 
 @media only screen and (max-width: 420px) {
     header {

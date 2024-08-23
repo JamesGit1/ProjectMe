@@ -1,13 +1,13 @@
 {
   "name": "projectme",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview"
   },
   "devDependencies": {
-    "vite": "^2.4.4"
+    "vite": "5.2.6"
   },
   "dependencies": {
     "three": "^0.131.3"

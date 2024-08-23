@@ -49,7 +49,7 @@ meCube.position.set(1.8, 0, -4);
 
 scene.add(meCube);
 
-const pointLight = new THREE.PointLight(0xffffff);
+const pointLight = new THREE.PointLight(0xffffff,1);
 pointLight.position.set(5, 5, 5);
 
 const ambientLight = new THREE.AmbientLight(0xffffff);
@@ -135,7 +135,7 @@ let boatModel, fishModel, fishModel2;
 let p1 = loadModel("/sailing_boat/scene.gltf").then(result => { boatModel = result.scene.children[0]; });
 let p2 = loadModel("/low_poly_fish/scene.gltf").then(result => { fishModel = result.scene.children[0]; });
 let p3 = loadModel("/low_poly_fish/scene.gltf").then(result => { fishModel2 = result.scene.children[0]; });
-let p4 = fetch('https://wordleapi.herokuapp.com/todaysWordle').then(response => response.json()).then(data => addWordle(data)); // Fetch Wordle API
+//let p4 = fetch('https://wordleapi.herokuapp.com/todaysWordle').then(response => response.json()).then(data => addWordle(data)); // Fetch Wordle API
 
 // Module Loader
 function loadModel(url) {
@@ -149,7 +149,7 @@ function loadModel(url) {
 }
 
 //if all Promises resolved 
-Promise.all([p1, p2, p3, p4]).then(() => {
+Promise.all([p1, p2, p3]).then(() => {
     //do something to the models
     boatModel.position.set(-10, -10, -4);
     boatModel.scale.set(0.1, 0.1, 0.1);
