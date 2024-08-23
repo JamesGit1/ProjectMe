@@ -132,9 +132,10 @@ function addWordle(data) {
 
 // New and improved promise loading, better for more objects
 let boatModel, fishModel, fishModel2;
-let p1 = loadModel("/sailing_boat/scene.gltf").then(result => { boatModel = result.scene.children[0]; });
-let p2 = loadModel("/low_poly_fish/scene.gltf").then(result => { fishModel = result.scene.children[0]; });
-let p3 = loadModel("/low_poly_fish/scene.gltf").then(result => { fishModel2 = result.scene.children[0]; });
+let repoDepolymentVar = "/ProjectMe"
+let p1 = loadModel(repoDepolymentVar + "/sailing_boat/scene.gltf").then(result => { boatModel = result.scene.children[0]; });
+let p2 = loadModel(repoDepolymentVar +"/low_poly_fish/scene.gltf").then(result => { fishModel = result.scene.children[0]; });
+let p3 = loadModel(repoDepolymentVar + "/low_poly_fish/scene.gltf").then(result => { fishModel2 = result.scene.children[0]; });
 //let p4 = fetch('https://wordleapi.herokuapp.com/todaysWordle').then(response => response.json()).then(data => addWordle(data)); // Fetch Wordle API
 
 // Module Loader
